@@ -5,6 +5,8 @@ package sentry
 import (
 	"runtime"
 	"strings"
+
+	appengine "google.golang.org/appengine"
 )
 
 func init() {
