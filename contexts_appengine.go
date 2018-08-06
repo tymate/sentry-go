@@ -14,7 +14,7 @@ func init() {
 		RuntimeContext("go", strings.TrimPrefix(runtime.Version(), "go")),
 		OSContext(&OSContextInfo{
 			Name:          "google-appengine",
-			Version:       appengine.ServerSoftware,
+			Version:       appengine.ServerSoftware(),
 		}),
 		DeviceContext(&DeviceContextInfo{
 			Model:        "Unknown",
