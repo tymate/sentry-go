@@ -22,7 +22,8 @@ func NewGAETransport() Transport {
 }
 
 func (t *gaeTransport) Send(dsn string, p Packet) error {
-	ctxOpt, ok := (*p.(*packet))[gaeContextClass]
+	pp := *p.(*packet)
+	ctxOpt, ok := pp[gaeContextClass]
 	if !ok {
 		return errors.New("missing Google AppEngine context")
 	}
@@ -32,8 +33,10 @@ func (t *gaeTransport) Send(dsn string, p Packet) error {
 		return errors.New("invalid GAEContext option")
 	}
 
+	delete(pp, gaeContextClass)
+
 	t.client = urlfetch.Client(opt.ctx)
-	return t.Send(dsn, p)
+	return t.Send(dsn, &pp)
 }
 
 type gaeContextOption struct {
@@ -45,7 +48,7 @@ func (o *gaeContextOption) Class() string {
 }
 
 func (o *gaeContextOption) Omit() bool {
-	return true
+	return false
 }
 
 func GAEContext(ctx context.Context) Option {
