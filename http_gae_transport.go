@@ -22,7 +22,7 @@ func NewGAETransport() Transport {
 }
 
 func (t *gaeTransport) Send(dsn string, p Packet) error {
-	ctxOpt, ok := p.(packet)[gaeContextClass]
+	ctxOpt, ok := (*p.(*packet))[gaeContextClass]
 	if !ok {
 		return errors.New("missing Google AppEngine context")
 	}
