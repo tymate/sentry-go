@@ -15,7 +15,7 @@ type gaeTransport struct {
 	*httpTransport
 }
 
-func NewGAETransport(ctx context.Context) Transport {
+func NewGAETransport() Transport {
 	t := newHTTPTransport()
 	httpT := t.(*httpTransport)
 	return &gaeTransport{httpT}
